@@ -1,0 +1,19 @@
+<div class="panel panel-info">
+  <div class="panel-heading">
+    <h3 class="panel-title"><%= @post.title %></h3>
+  </div>
+  <div class="panel-body">
+    <%= @post.text %>
+  </div>
+</div>
+<%= link_to 'Edit', edit_post_path(@post), :class => 'btn btn-warning btn-sm' %>
+
+
+
+<h2>Comments:</h2>
+<%= render @post.comments %>
+
+<h2>Add a comment:</h2>
+<%= render 'comments/form' %>
+
+
