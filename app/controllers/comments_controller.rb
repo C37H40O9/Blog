@@ -22,7 +22,7 @@ class CommentsController < ApplicationController
     def if_admin?
       unless current_admin!=nil and current_admin.email=='vasilygorev@yandex.ru'
         flash[:error] = "You must be admin to access this action"
-       redirect_to posts_path # halts request cycle
+       redirect_to posts_path
       end
 
     end
