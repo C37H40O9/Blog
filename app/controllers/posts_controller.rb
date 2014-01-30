@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
-  before_filter :if_admin, except: [:show, :index]
+  before_filter :if_admin?, except: [:show, :index]
 
 
   def new
@@ -49,8 +49,12 @@ class PostsController < ApplicationController
 
 private
 
-  def if_admin
-    true if current_admin.email=='vasilygorev@yandex.ru'
+  def if_admin?
+    unless current_admin!=nil and current_admin.email=='vasilygorev@yandex.ru'
+      flash[:error] = "You must be admin to access this action"
+      redirect_to posts_path # halts request cycle
+    end
+
   end
 
   def record_not_found

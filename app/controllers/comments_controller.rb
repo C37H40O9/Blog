@@ -2,7 +2,7 @@ class CommentsController < ApplicationController
 
   #http_basic_authenticate_with name: "admin", password: "password", only: :destroy
 
-  before_filter :authenticate_admin!, only: :destroy
+  before_filter :if_admin?, only: :destroy
 
   def create
     @post = Post.find(params[:post_id])
@@ -18,6 +18,15 @@ class CommentsController < ApplicationController
   end
 
   private
+
+    def if_admin?
+      unless current_admin!=nil and current_admin.email=='vasilygorev@yandex.ru'
+        flash[:error] = "You must be admin to access this action"
+       redirect_to posts_path # halts request cycle
+      end
+
+    end
+
     def comment_params
       params.require(:comment).permit(:commenter, :body)
     end
