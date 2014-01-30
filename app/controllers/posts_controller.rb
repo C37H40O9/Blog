@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
-  http_basic_authenticate_with name: 'admin', password: 'password', except: [:index, :show]
+  before_filter :if_admin, except: [:show, :index]
+
 
   def new
     @post = Post.new
@@ -47,6 +48,10 @@ class PostsController < ApplicationController
   end
 
 private
+
+  def if_admin
+    true if current_admin.email=='vasilygorev@yandex.ru'
+  end
 
   def record_not_found
     render 'public/404', :status => 404
