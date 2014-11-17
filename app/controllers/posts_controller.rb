@@ -60,7 +60,7 @@ class PostsController < ApplicationController
 private
 
   def if_admin?
-    unless current_admin!=nil and current_admin.email=='vasilygorev@yandex.ru'
+    unless current_admin!=nil
       flash[:error] = "You must be admin to access this action"
       redirect_to posts_path
     end
