@@ -6,30 +6,66 @@
     <%= link_to 'Войти', new_admin_session_path %>
 <% end %>
 
-<%= current_admin %>
-<h1>Listing posts</h1>
+<h2>Посты</h2>
 <p>
-<%= link_to 'New post', new_post_path, :class => 'btn btn-success btn-sm' %><br>
+<%= link_to 'Добавить пост', new_post_path, :class => 'btn btn-success btn-sm' if current_admin!=nil %>
 </p>
-
-
+<%= paginate @posts %>
 
   <% @posts.each do |post| %>
-      <div>
+    <div class="panel panel-default">
+      <div class="panel-body">
 
-        <strong><%= post.title.slice(0,15) %></strong><br>
-        <p><%= post.text.slice(0,15) %></p>
+
+
+        <table>
+          <tr>
+            <td>
+          <p>
+          <%= post.created_at.to_s(:long) %>
+          </p>
+          <p>
+          <%= 'Обновлен:' + post.updated_at.to_s(:long) if current_admin!=nil %>
+          </p>
+
+              <%= link_to "#{post.title.slice(0,20)}", post_path(post), :class => 'post-title-link'%>
+              <p>
+                Тэги: <%= raw post.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %>
+              </p>
+
+
+            </td>
+          </tr>
+
+
+        <tr>
+          <td>
+            <br>
+          <%= image_tag post.photo.url(:thumb), :align => "left" %>
+          </td>
+        </tr>
+          <tr>
+            <td>
+
+
+        <p><%= post.text.slice(0,50) %></p>
         <p>
           <span class="badge"><%= post.comments.size %> </span> comments
         </p>
         <div class="btn-group">
 
-        <%= link_to 'Show', post_path(post), :class => 'btn btn-primary btn-sm' %>
-        <%= link_to 'Edit', edit_post_path(post), :class => 'btn btn-warning btn-sm' %>
-        <%= link_to 'Destroy', post_path(post), method: :delete, data: { confirm: 'Are you sure?'}, :class => 'btn btn-danger btn-sm' %>
+          <!--<%= link_to 'Show', post_path(post), :class => 'btn btn-primary btn-sm' %> -->
+        <%= link_to 'Редактировать', edit_post_path(post), :class => 'btn btn-warning btn-sm' if current_admin!=nil %>
+        <%= link_to 'Удалить', post_path(post), method: :delete, data: { confirm: 'Are you sure?'}, :class => 'btn btn-danger btn-sm'  if current_admin!=nil %>
         </div>
+            </td>
+          </tr>
+        </table>
 
-      </div><br>
+      </div>
+    </div>
 
 
   <% end %>
+
+<%= paginate @posts %>

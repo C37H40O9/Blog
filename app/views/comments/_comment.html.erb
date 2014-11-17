@@ -13,5 +13,5 @@
 <p>
   <%= link_to 'Destroy Comment', [comment.post, comment],
               method: :delete,
-              data: {confirm: 'Are you sure?'}, :class => 'btn btn-danger btn-sm' %>
+              data: {confirm: 'Are you sure?'}, :class => 'btn btn-danger btn-sm' if current_admin!=nil  %>
 </p>

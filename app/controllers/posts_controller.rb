@@ -9,6 +9,7 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
+    @post.photo = params[:post][:photo]
 
     if @post.save
       redirect_to @post
@@ -23,7 +24,16 @@ class PostsController < ApplicationController
   end
 
   def index
-    @posts = Post.all
+    if params[:tag]
+      @posts = Post.order(created_at: :desc).tagged_with(params[:tag]).page(params[:page]).per(3)
+    else
+      @posts = Post.order(created_at: :desc).page(params[:page]).per(3)
+    end
+
+
+
+
+
   end
 
   def edit
@@ -62,7 +72,7 @@ private
   end
 
   def post_params
-    params.require(:post).permit(:title, :text)
+    params.require(:post).permit(:title, :text, :photo, :tag_list)
   end
 
 

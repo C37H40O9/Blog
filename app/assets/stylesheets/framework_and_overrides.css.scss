@@ -30,6 +30,8 @@ img {
   @extend .btn-primary;
   @extend .btn-lg;
   }
+
+
 // apply styles to HTML elements
 // to make views framework-neutral
 main {
@@ -43,3 +45,7 @@ section {
   @extend .row;
   margin-top: 20px;
   }
+
+input.body {
+  width:50%;
+}

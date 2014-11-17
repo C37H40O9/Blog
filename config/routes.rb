@@ -1,13 +1,16 @@
 Blog::Application.routes.draw do
   devise_for :admins
-  get "welcome/index"
+  get "posts/index"
+  get 'tags/:tag', to: 'posts#index', as: :tag
+  mount API::Root => '/'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
   resources :posts do
     resources :comments
   end
   # You can have the root of your site routed with "root"
-  root 'welcome#index'
+  root 'posts#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
