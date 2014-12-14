@@ -8,7 +8,7 @@ Test task
 
 * api: /api/v1/posts
 
-* ...
+* jbuilder api: /posts/index.json
 
 
 Please feel free to use a different markup language if you do not plan to run
