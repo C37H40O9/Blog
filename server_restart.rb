@@ -1,0 +1,1 @@
+`kill -9 \`cat tmp/pids/server.pid\` && rm -f tmp/pids/server.pid && rails s -p 8090 -d`
