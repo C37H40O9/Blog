@@ -1,14 +1,14 @@
 
-<% if admin_signed_in? %>
-    <span>Здравствуйте, <%= current_admin.email %></span>
-    <%= link_to 'Выйти', destroy_admin_session_path, :method => :delete %>
+<% if user_signed_in? %>
+    <span>Здравствуйте, <%= current_user.email %></span>
+    <%= link_to 'Выйти', destroy_user_session_path, :method => :delete %>
 <% else %>
-    <%= link_to 'Войти', new_admin_session_path %>
+    <%= link_to 'Войти', new_user_session_path %>
 <% end %>
 
 <h2>Посты</h2>
 <p>
-<%= link_to 'Добавить пост', new_post_path, :class => 'btn btn-success btn-sm' if current_admin!=nil %>
+<%= link_to 'Добавить пост', new_post_path, :class => 'btn btn-success btn-sm' if admin? %>
 </p>
 <%= paginate @posts %>
 
@@ -25,7 +25,7 @@
           <%= post.created_at.to_s(:long) %>
           </p>
           <p>
-          <%= 'Обновлен:' + post.updated_at.to_s(:long) if current_admin!=nil %>
+          <%= 'Обновлен:' + post.updated_at.to_s(:long) if admin? %>
           </p>
 
               <%= link_to "#{post.title.slice(0,20)}", post_path(post), :class => 'post-title-link'%>
@@ -55,8 +55,8 @@
         <div class="btn-group">
 
           <!--<%= link_to 'Show', post_path(post), :class => 'btn btn-primary btn-sm' %> -->
-        <%= link_to 'Редактировать', edit_post_path(post), :class => 'btn btn-warning btn-sm' if current_admin!=nil %>
-        <%= link_to 'Удалить', post_path(post), method: :delete, data: { confirm: 'Are you sure?'}, :class => 'btn btn-danger btn-sm'  if current_admin!=nil %>
+        <%= link_to 'Редактировать', edit_post_path(post), :class => 'btn btn-warning btn-sm' if admin? %>
+        <%= link_to 'Удалить', post_path(post), method: :delete, data: { confirm: 'Are you sure?'}, :class => 'btn btn-danger btn-sm'  if admin? %>
         </div>
             </td>
           </tr>
