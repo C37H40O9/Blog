@@ -1,0 +1,71 @@
+
+<% if user_signed_in? %>
+    <span>Здравствуйте, <%= current_user.email %></span>
+    <%= link_to 'Выйти', destroy_user_session_path, :method => :delete %>
+<% else %>
+    <%= link_to 'Войти', new_user_session_path %>
+<% end %>
+
+<h2>Посты</h2>
+<p>
+  <%= link_to 'Добавить пост', new_admin_post_path, :class => 'btn btn-success btn-sm'  %>
+</p>
+<%= paginate @posts %>
+
+<% @posts.each do |post| %>
+    <div class="panel panel-default">
+      <div class="panel-body">
+
+
+
+        <table>
+          <tr>
+            <td>
+              <p>
+                <%= post.created_at.to_s(:long) %>
+              </p>
+              <p>
+                <%= 'Обновлен:' + post.updated_at.to_s(:long) if admin? %>
+              </p>
+
+              <%= link_to "#{post.title.slice(0,20)}", admin_post_path(post), :class => 'post-title-link'%>
+              <p>
+                Тэги: <%= raw post.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %>
+              </p>
+
+
+            </td>
+          </tr>
+
+
+          <tr>
+            <td>
+              <br>
+              <%= image_tag post.photo.url(:thumb), :align => "left" %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+
+
+              <p><%= post.text.slice(0,50) %></p>
+              <p>
+                <span class="badge"><%= post.comments.size %> </span> comments
+              </p>
+              <div class="btn-group">
+
+                <!--<%= link_to 'Show', admin_post_path(post), :class => 'btn btn-primary btn-sm' %> -->
+                <%= link_to 'Редактировать', edit_admin_post_path(post), :class => 'btn btn-warning btn-sm'  %>
+                <%= link_to 'Удалить', admin_post_path(post), method: :delete, data: { confirm: 'Are you sure?'}, :class => 'btn btn-danger btn-sm'  %>
+              </div>
+            </td>
+          </tr>
+        </table>
+
+      </div>
+    </div>
+
+
+<% end %>
+
+<%= paginate @posts %>

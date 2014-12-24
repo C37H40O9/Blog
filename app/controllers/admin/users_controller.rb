@@ -1,23 +1,9 @@
-class PostsController < ApplicationController
+class Admin::UsersController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
-#  before_filter :if_admin?, except: [:show, :index]
-
-
-  def show
-    @post = Post.find(params[:id])
-  end
+  before_filter :if_admin?, except: [:show, :index]
 
   def index
-    if params[:tag]
-      @posts = Post.order(created_at: :desc).tagged_with(params[:tag]).page(params[:page]).per(3)
-    else
-      @posts = Post.order(created_at: :desc).page(params[:page]).per(3)
-    end
-
-
-
-
-
+    @users = User.all
   end
 
 
@@ -38,8 +24,5 @@ class PostsController < ApplicationController
   def post_params
     params.require(:post).permit(:title, :text, :photo, :tag_list)
   end
-
-
-
 
 end

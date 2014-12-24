@@ -1,6 +1,5 @@
 Blog::Application.routes.draw do
   devise_for :users
-  #devise_for :admins
   get "posts/index"
   get 'tags/:tag', to: 'posts#index', as: :tag
   mount API::Root => '/'
@@ -54,7 +53,9 @@ Blog::Application.routes.draw do
   #   end
   #   resources :posts, concerns: :toggleable
   #   resources :photos, concerns: :toggleable
-
+namespace :admin do
+   resources :posts, :users
+end
   # Example resource route within a namespace:
   #   namespace :admin do
   #     # Directs /admin/products/* to Admin::ProductsController

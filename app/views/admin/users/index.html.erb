@@ -1,0 +1,12 @@
+<ol>
+  <% @users.each do |user| %>
+      <li>
+      <ul>
+      <li><%= user.email %></li>
+      <li><%= user.admin %></li>
+      <li><%= user.last_sign_in_ip %></li>
+
+      </ul>
+      </li>
+  <% end %>
+</ol>

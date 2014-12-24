@@ -1,6 +1,22 @@
-class PostsController < ApplicationController
+class Admin::PostsController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
-#  before_filter :if_admin?, except: [:show, :index]
+  before_filter :if_admin?
+
+
+  def new
+    @post = Post.new
+  end
+
+  def create
+    @post = Post.new(post_params)
+    @post.photo = params[:post][:photo]
+
+    if @post.save
+      redirect_to @post
+    else
+      render 'new'
+    end
+  end
 
 
   def show
@@ -20,12 +36,32 @@ class PostsController < ApplicationController
 
   end
 
+  def edit
+    @post = Post.find(params[:id])
+  end
 
-  private
+  def update
+    @post = Post.find(params[:id])
+
+    if @post.update(post_params)
+      redirect_to @post
+    else
+      render 'edit'
+    end
+  end
+
+  def destroy
+    @post = Post.find(params[:id])
+    @post.destroy
+
+    redirect_to posts_path
+  end
+
+private
 
   def if_admin?
     unless current_user!=nil && current_user.admin?
-      flash[:error] = "You must be admin to access this action"
+
       redirect_to posts_path
     end
 

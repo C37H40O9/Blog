@@ -42,6 +42,8 @@ gem 'acts-as-taggable-on', '~> 3.4'
 
 gem 'grape'
 
+gem 'rb-readline'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
