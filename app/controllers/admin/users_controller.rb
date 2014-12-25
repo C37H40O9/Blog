@@ -1,12 +1,51 @@
 class Admin::UsersController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
-  before_filter :if_admin?, except: [:show, :index]
+  before_filter :if_admin?
 
   def index
     @users = User.all
   end
 
+  def new
+    @user = User.new
+  end
 
+  def create
+    @user = User.new(user_params)
+
+
+    if @user.save
+      redirect_to @user
+    else
+      render 'new'
+    end
+  end
+
+
+  def show
+    @user = User.find(params[:id])
+  end
+
+  def edit
+    @user = User.find(params[:id])
+  end
+
+  def update
+    @user = User.find(params[:id])
+
+    if @user.update(user_params)
+      redirect_to @user
+    else
+      render 'edit'
+    end
+  end
+
+  def destroy
+    @user = User.find(params[:id])
+    @user.destroy
+
+    redirect_to admin_users_path
+  end
   private
 
   def if_admin?
@@ -21,8 +60,8 @@ class Admin::UsersController < ApplicationController
     render 'public/404', :status => 404
   end
 
-  def post_params
-    params.require(:post).permit(:title, :text, :photo, :tag_list)
+  def user_params
+    params.require(:user).permit(:email, :admin)
   end
 
 end

@@ -1,12 +1,29 @@
-<ol>
-  <% @users.each do |user| %>
-      <li>
-      <ul>
-      <li><%= user.email %></li>
-      <li><%= user.admin %></li>
-      <li><%= user.last_sign_in_ip %></li>
+<% if user_signed_in? %>
+    <span>Здравствуйте, <%= current_user.email %></span>
+    <%= link_to 'Выйти', destroy_user_session_path, :method => :delete %>
+<% else %>
+    <%= link_to 'Войти', new_user_session_path %>
+<% end %>
+<br>
+<span>
+<%= link_to 'Посты =>', admin_posts_path, :class => 'btn btn-success btn-sm'  %>
+</span>
 
-      </ul>
-      </li>
+<h2>Пользователи</h2>
+
+  <% @users.each do |user| %>
+<div style="display: inline-block" class="panel panel-default">
+  <div class="panel-body">
+  <ul>
+    <li>User ID: <%= user.id %></li>
+    <li>User e-mail: <%= user.email %></li>
+    <li>Admin: <%= user.admin %></li>
+  </ul>
+  </div>
+  <div class="btn-group">
+    <%= link_to 'Редактировать', edit_admin_user_path(user), :class => 'btn btn-warning btn-sm'  %>
+
+    <%= link_to 'Удалить', admin_user_path(user), method: :delete, data: { confirm: 'Are you sure?'}, :class => 'btn btn-danger btn-sm'  %>
+    </div>
+</div><br>
   <% end %>
-</ol>

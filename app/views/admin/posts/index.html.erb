@@ -5,13 +5,14 @@
 <% else %>
     <%= link_to 'Войти', new_user_session_path %>
 <% end %>
-
+<br>
+<span><%= link_to 'Пользователи =>', admin_users_path, :class => 'btn btn-success btn-sm'  %></span>
 <h2>Посты</h2>
 <p>
   <%= link_to 'Добавить пост', new_admin_post_path, :class => 'btn btn-success btn-sm'  %>
 </p>
 <%= paginate @posts %>
-
+<br>
 <% @posts.each do |post| %>
     <div class="panel panel-default">
       <div class="panel-body">
@@ -63,7 +64,7 @@
         </table>
 
       </div>
-    </div>
+    </div><br>
 
 
 <% end %>
