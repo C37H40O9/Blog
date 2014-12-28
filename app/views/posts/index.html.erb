@@ -10,59 +10,29 @@
 
 <%= paginate @posts %>
 
+<div class="post-link_block">
   <% @posts.each do |post| %>
-    <div class="panel panel-default">
-      <div class="panel-body">
-
-
-
-        <table>
-          <tr>
-            <td>
-          <p>
-          <%= post.created_at.to_s(:long) %>
-          </p>
-          <p>
-          <%= 'Обновлен:' + post.updated_at.to_s(:long) if admin? %>
-          </p>
-
-              <%= link_to "#{post.title.slice(0,20)}", post_path(post), :class => 'post-title-link'%>
-              <p>
-                Тэги: <%= raw post.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %>
-              </p>
-
-
-            </td>
-          </tr>
-
-
-        <tr>
-          <td>
-            <br>
-          <%= image_tag post.photo.url(:thumb), :align => "left" %>
-          </td>
-        </tr>
-          <tr>
-            <td>
-
-
-        <p><%= post.text.slice(0,50) %></p>
-        <p>
-          <span class="badge"><%= post.comments.size %> </span> comments
-        </p>
-        <div class="btn-group">
-
-          <!--<%= link_to 'Show', post_path(post), :class => 'btn btn-primary btn-sm' %> -->
-
+    <%= link_to post_path(post) do %>
+      <div class="post-item">
+        <div class="post-image">
+            <%= image_tag post.photo.url(:thumb)%>
         </div>
-            </td>
-          </tr>
-        </table>
-
+      <div class="post-info">
+        <div class="post-title">
+          <h4>
+            <%= post.title %>
+          </h4>
+        </div>
+        <div class="post-short_text">
+          <%= post.text.truncate(200, separator: ' ') %>
+        </div>
+        <div class="post-date">
+          <%= post.created_at.to_s(:long)%>
+        </div>
       </div>
-    </div>
-
-
+      </div>
+    <% end %>
   <% end %>
+</div>
 
 <%= paginate @posts %>

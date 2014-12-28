@@ -15,7 +15,7 @@ class Admin::UsersController < ApplicationController
 
 
     if @user.save
-      redirect_to @user
+      redirect_to action: "show", id: @user.id
     else
       render 'new'
     end
@@ -34,7 +34,7 @@ class Admin::UsersController < ApplicationController
     @user = User.find(params[:id])
 
     if @user.update(user_params)
-      redirect_to @user
+      redirect_to action: "show", id: @user.id
     else
       render 'edit'
     end
@@ -61,7 +61,7 @@ class Admin::UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:email, :admin)
+    params.require(:user).permit(:email, :admin, :password, :password_confirmation)
   end
 
 end

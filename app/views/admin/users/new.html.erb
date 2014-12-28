@@ -1,0 +1,30 @@
+<%= form_for @user, :url => admin_users_path do |f| %>
+
+
+    <div class="field">
+      <%= f.label :email %><br />
+      <%= f.text_field :email %>
+    </div>
+
+    <div class="field">
+      <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+      <%= f.password_field :password %>
+    </div>
+
+    <div class="field">
+      <%= f.label :password_confirmation %><br />
+      <%= f.password_field :password_confirmation %>
+    </div>
+
+
+
+    <p>
+      <%= f.label :admin %>
+      <%= f.check_box :admin %><br>
+    </p>
+
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+
+<% end %>

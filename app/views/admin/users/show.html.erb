@@ -1,0 +1,15 @@
+<div class="panel panel-info">
+  <div class="panel-heading">
+    <h2 class="panel-title">User: <%= @user.id %></h2>
+  </div>
+  <div class="panel-body">
+    <pre>
+    User ID:     <%= @user.id %>
+    Email:       <%= @user.email %>
+    Created at:  <%= @user.created_at %>
+    Admin:       <%= @user.admin%>
+    </pre>
+
+  </div>
+</div>
+<%= link_to 'Редактировать', edit_admin_user_path(@user), :class => 'btn btn-warning btn-sm'%>

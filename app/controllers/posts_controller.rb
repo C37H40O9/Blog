@@ -8,17 +8,18 @@ class PostsController < ApplicationController
   end
 
   def index
-    if params[:tag]
+    if request.format.symbol == :json
+      @posts=Post.order(created_at: :desc)
+
+    elsif params[:tag]
       @posts = Post.order(created_at: :desc).tagged_with(params[:tag]).page(params[:page]).per(3)
     else
       @posts = Post.order(created_at: :desc).page(params[:page]).per(3)
     end
 
-
-
-
-
   end
+
+
 
 
   private

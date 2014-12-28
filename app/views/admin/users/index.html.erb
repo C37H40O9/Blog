@@ -5,17 +5,21 @@
     <%= link_to 'Войти', new_user_session_path %>
 <% end %>
 <br>
-<span>
-<%= link_to 'Посты =>', admin_posts_path, :class => 'btn btn-success btn-sm'  %>
-</span>
+
 
 <h2>Пользователи</h2>
+
+<p>
+  <%= link_to 'Добавить пользователя', new_admin_user_path, :class => 'btn btn-success btn-sm'  %>
+</p>
 
   <% @users.each do |user| %>
 <div style="display: inline-block" class="panel panel-default">
   <div class="panel-body">
   <ul>
-    <li>User ID: <%= user.id %></li>
+    <li>
+      <%= link_to "User ID: #{user.id}", admin_user_path(user)%>
+    </li>
     <li>User e-mail: <%= user.email %></li>
     <li>Admin: <%= user.admin %></li>
   </ul>

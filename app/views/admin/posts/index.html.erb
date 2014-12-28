@@ -6,7 +6,7 @@
     <%= link_to 'Войти', new_user_session_path %>
 <% end %>
 <br>
-<span><%= link_to 'Пользователи =>', admin_users_path, :class => 'btn btn-success btn-sm'  %></span>
+
 <h2>Посты</h2>
 <p>
   <%= link_to 'Добавить пост', new_admin_post_path, :class => 'btn btn-success btn-sm'  %>
@@ -14,7 +14,7 @@
 <%= paginate @posts %>
 <br>
 <% @posts.each do |post| %>
-    <div class="panel panel-default">
+    <div class="panel panel-default" style="width: 50%">
       <div class="panel-body">
 
 
@@ -26,10 +26,10 @@
                 <%= post.created_at.to_s(:long) %>
               </p>
               <p>
-                <%= 'Обновлен:' + post.updated_at.to_s(:long) if admin? %>
+                <%= 'Обновлен:' + post.updated_at.to_s(:long)%>
               </p>
 
-              <%= link_to "#{post.title.slice(0,20)}", admin_post_path(post), :class => 'post-title-link'%>
+              <%= link_to "#{post.title.truncate(45, separator: ' ')}", admin_post_path(post), :class => 'post-title-link'%>
               <p>
                 Тэги: <%= raw post.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %>
               </p>
@@ -49,7 +49,7 @@
             <td>
 
 
-              <p><%= post.text.slice(0,50) %></p>
+              <p><%= post.text.truncate(200, separator: ' ') %></p>
               <p>
                 <span class="badge"><%= post.comments.size %> </span> comments
               </p>

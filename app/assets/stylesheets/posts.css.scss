@@ -4,4 +4,56 @@
 .post-title-link {
   font-size: 16pt;
   font-weight: bold;
+
+
 }
+
+
+
+.post-linkblock {
+  cursor: pointer;
+  display: block;
+}
+
+.post-link_block a {
+  text-decoration: none;
+  color: black;
+}
+
+.post-item {
+  display: table-row;
+}
+
+.post-item:hover {
+  background-color: #FFCB43;
+}
+
+.post-info {
+  width: 700px;
+  margin: 0px 10px 0px 10px;
+  float: right;
+}
+
+.post-short_text {
+
+  text-align: justify;
+  font-size: 14px;
+}
+
+.post-title {
+
+}
+
+.post-date {
+  color: #666666;
+  font-size: 12px;
+  font-family: arial, sans-serif;
+
+
+}
+
+.post-image {
+  float: left;
+}
+
+

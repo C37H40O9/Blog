@@ -15,6 +15,16 @@
       <%= f.text_field :email, :size =>"70" %>
     </p>
 
+    <p>
+    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+    <%= f.password_field :password %>
+    </p>
+
+    <p>
+      <%= f.label :password_confirmation %><br />
+      <%= f.password_field :password_confirmation %>
+    </p>
+
 
     <p>
       <%= f.label :admin %>
